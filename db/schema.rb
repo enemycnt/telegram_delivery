@@ -11,10 +11,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312130603) do
+ActiveRecord::Schema.define(version: 20160312133206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carts", force: :cascade do |t|
+    t.integer  "order_id"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "carts", ["order_id"], name: "index_carts_on_order_id", using: :btree
+
+  create_table "carts_items", id: false, force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "cart_id"
+  end
+
+  add_index "carts_items", ["cart_id"], name: "index_carts_items_on_cart_id", using: :btree
+  add_index "carts_items", ["item_id", "cart_id"], name: "index_carts_items_on_item_id_and_cart_id", using: :btree
+
+  create_table "categories", force: :cascade do |t|
+    t.integer  "venue_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "categories", ["venue_id"], name: "index_categories_on_venue_id", using: :btree
+
+  create_table "items", force: :cascade do |t|
+    t.integer  "sub_category_id"
+    t.string   "name"
+    t.text     "content"
+    t.float    "price"
+    t.string   "picture_url"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "items", ["sub_category_id"], name: "index_items_on_sub_category_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_categories", force: :cascade do |t|
+    t.integer  "category_id"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,9 +84,23 @@ ActiveRecord::Schema.define(version: 20160312130603) do
     t.datetime "updated_at",                          null: false
     t.string   "name"
     t.integer  "role"
+    t.integer  "venue_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["venue_id"], name: "index_users_on_venue_id", using: :btree
 
+  create_table "venues", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_foreign_key "carts", "orders"
+  add_foreign_key "categories", "venues"
+  add_foreign_key "items", "sub_categories"
+  add_foreign_key "sub_categories", "categories"
+  add_foreign_key "users", "venues"
 end

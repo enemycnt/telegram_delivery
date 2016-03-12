@@ -13,7 +13,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-gem 'administrate'
+# gem 'administrate'
+gem "administrate", "~> 0.1.4"
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'haml-rails'

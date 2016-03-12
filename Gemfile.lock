@@ -316,7 +316,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  administrate
+  administrate (~> 0.1.4)
   better_errors
   bootstrap-sass
   byebug
