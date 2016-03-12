@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :screens
+    resources :commands
     resources :users
     resources :venues
     resources :categories

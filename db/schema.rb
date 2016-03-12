@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312133206) do
+ActiveRecord::Schema.define(version: 20160312142200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 20160312133206) do
 
   add_index "categories", ["venue_id"], name: "index_categories_on_venue_id", using: :btree
 
+  create_table "commands", force: :cascade do |t|
+    t.string   "title"
+    t.string   "type"
+    t.text     "description"
+    t.string   "param"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "screen_id"
+  end
+
+  add_index "commands", ["screen_id"], name: "index_commands_on_screen_id", using: :btree
+
   create_table "items", force: :cascade do |t|
     t.integer  "sub_category_id"
     t.string   "name"
@@ -58,6 +70,14 @@ ActiveRecord::Schema.define(version: 20160312133206) do
     t.string   "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.string   "name"
+    t.string   "custom_header"
+    t.string   "type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "sub_categories", force: :cascade do |t|
@@ -100,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160312133206) do
 
   add_foreign_key "carts", "orders"
   add_foreign_key "categories", "venues"
+  add_foreign_key "commands", "screens"
   add_foreign_key "items", "sub_categories"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "users", "venues"
