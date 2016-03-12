@@ -11,7 +11,7 @@ class CommandDashboard < Administrate::BaseDashboard
     screen: Field::BelongsTo,
     id: Field::Number,
     title: Field::String,
-    type: Field::String,
+    command_type: Field::String,
     description: Field::Text,
     param: Field::String,
     created_at: Field::DateTime,
@@ -27,7 +27,7 @@ class CommandDashboard < Administrate::BaseDashboard
     :screen,
     :id,
     :title,
-    :type,
+    :command_type,
   ]
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +36,7 @@ class CommandDashboard < Administrate::BaseDashboard
     :screen,
     :id,
     :title,
-    :type,
+    :command_type,
     :description,
     :param,
     :created_at,
@@ -49,7 +49,7 @@ class CommandDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :screen,
     :title,
-    :type,
+    :command_type,
     :description,
     :param,
   ]

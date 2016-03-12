@@ -12,7 +12,7 @@ class ScreenDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     custom_header: Field::String,
-    type: Field::String,
+    screen_type: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }
@@ -36,7 +36,7 @@ class ScreenDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :custom_header,
-    :type,
+    :screen_type,
     :created_at,
     :updated_at,
   ]
@@ -48,7 +48,7 @@ class ScreenDashboard < Administrate::BaseDashboard
     :commands,
     :name,
     :custom_header,
-    :type,
+    :screen_type,
   ]
 
   # Overwrite this method to customize how screens are displayed
