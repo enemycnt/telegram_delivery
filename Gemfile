@@ -22,6 +22,8 @@ gem 'high_voltage'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
+gem 'rack-cors'
+
 group :development do
   gem 'better_errors'
   gem 'foreman'
